@@ -1,0 +1,9 @@
+dictionaries = [
+    "en_us",
+    "es",
+]
+words = [
+    "AACC",
+    "TDAH",
+    "neurodivergente",
+]

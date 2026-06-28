@@ -1,0 +1,106 @@
+@import "tailwindcss";
+@import "@fontsource/cormorant-garamond/300.css";
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/lora/400.css";
+@import "@fontsource/lora/400-italic.css";
+@import "@fontsource/work-sans/400.css";
+
+@plugin "@tailwindcss/typography";
+@source "../../src/**/*.{astro,html,js,jsx,ts,tsx,md,mdx}";
+
+@theme {
+  --color-ivory: #faf7f2;
+  --color-ink: #1e1810;
+  --color-body: #2a2018;
+  --color-muted: #4c463f;
+  --color-umber: #5a4e3a;
+  --color-gold: #a17e42;
+  --color-line: #7d766e;
+  --color-line-soft: #e4dace;
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Lora", Georgia, serif;
+  --font-label: "Work Sans", Inter, sans-serif;
+  --font-logo: "Cormorant Garamond", Georgia, serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background-color: var(--color-ivory);
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  line-height: 1.3;
+  color: var(--color-ink);
+}
+
+h1 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+a {
+  color: var(--color-gold);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-thickness 0.15s ease;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--color-line-soft);
+  width: 50%;
+  margin: 4rem auto;
+}
+
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.prose :is(h1, h2, h3) {
+  letter-spacing: 0.01em;
+}
+
+.prose blockquote {
+  border-left-color: var(--color-line-soft);
+  font-style: italic;
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose strong {
+  font-weight: 600;
+}
+
+.prose p {
+  text-align: justify;
+}

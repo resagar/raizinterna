@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  ogImage: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
+  canonical?: string;
+}
+
+const {
+  title,
+  description,
+  ogImage,
+  ogImageAlt = 'Raíz Interna — memorias de criar y pensar en voz alta',
+  ogType = 'website',
+  canonical,
+} = Astro.props;
+
+const defaultCanonical = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonicalURL = new URL(canonical ?? defaultCanonical, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site).toString();
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="theme-color" content="#faf7f2" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={ogImageAlt} />
+    <meta property="og:url" content={canonicalURL.toString()} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content="Raíz Interna" />
+    <meta property="og:locale" content="es_ES" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@rsamuelgarcia" />
+    <meta name="twitter:creator" content="@rsamuelgarcia" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <link rel="canonical" href={canonicalURL.toString()} />
+
+    <slot name="head" />
+
+    <slot name="json-ld" />
+
+    <link rel="icon" href="/icon.png" type="image/png" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icon.png" />
+
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title="Raíz Interna"
+      href="/feed.xml"
+    />
+  </head>
+  <body class="bg-ivory text-ink antialiased min-h-screen">
+    <Nav />
+    <slot />
+  </body>
+</html>

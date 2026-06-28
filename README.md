@@ -1,46 +1,43 @@
-# Astro Starter Kit: Basics
+# Raíz Interna
 
-```sh
-pnpm create astro@latest -- --template basics
-```
+Blog personal íntimo de René García: historias de crianza neurodivergente y pensamientos en voz alta. Hecho con Astro, sin filtro editorial, sin solemnidad.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Stack
 
-## 🚀 Project Structure
+- [Astro](https://astro.build) 7
+- TypeScript (modo strict)
+- [Tailwind CSS](https://tailwindcss.com/) 4 con `@tailwindcss/typography`
+- [pnpm](https://pnpm.io)
+- Node.js >= 22.12.0
 
-Inside of your Astro project, you'll see the following folders and files:
+## Comandos
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+| Comando                  | Acción                                                  |
+| ------------------------ | ------------------------------------------------------- |
+| `pnpm install`           | Instala las dependencias                                |
+| `pnpm dev`               | Inicia el dev server en `http://localhost:4321`         |
+| `pnpm build`             | Genera el build de producción en `./dist/`              |
+| `pnpm preview`           | Previsualiza el build localmente                        |
+| `pnpm og:placeholders`   | Regenera las OG images placeholder en `public/og/`      |
+| `pnpm astro`             | Acceso a la CLI de Astro (`add`, `check`, etc.)         |
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+> El dev server se inicia en segundo plano con `astro dev --background`. Administralo con `astro dev stop`, `astro dev status` y `astro dev logs`.
 
-## 🧞 Commands
+## Documentación para agentes
 
-All commands are run from the root of the project, from a terminal:
+Si sos un agente de IA, empezá por `AGENTS.md` y descubrí el contexto del proyecto de forma progresiva en `.docs/`:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+- `.docs/README.md`: índice de discovery.
+- `.docs/project-context.md`: propósito, audiencia y estado.
+- `.docs/design-system.md`: tokens de diseño (colores, tipografía, espaciado).
+- `.docs/seo-checklist.md`: SEO completo (meta tags, JSON-LD, OG, RSS, sitemap).
+- `.docs/content-and-i18n.md`: idioma, schemas de content collections, RSS, sitemap.
+- `.docs/architecture.md`: convenciones de Astro.
+- `.docs/repo-map.md`: dónde encontrar las cosas.
+- `.docs/stack-and-workflow.md`: stack y comandos.
+- `.docs/deployment.md`: target de deploy.
+- `.docs/product-and-design-references.md`: origen del diseño (Stitch) y mapeo a componentes.
 
-## 👀 Want to learn more?
+## Estado
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Proyecto en bootstrap. Estructura base + SEO + docs + content collection armada. Falta: contenido real (más allá de la memoria de ejemplo), OG images definitivas, y deploy a Cloudflare Pages bajo `raizinterna.resagar.com`.

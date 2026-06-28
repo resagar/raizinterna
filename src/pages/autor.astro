@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://raizinterna.resagar.com/autor#person',
+  name: 'René García',
+  jobTitle: 'Padre, escritor, neurodivergente',
+  url: 'https://raizinterna.resagar.com/autor',
+  description:
+    'Padre neurodivergente (TDAH + AACC) que escribe sobre la crianza, la escritura y la vida en bruto.',
+  inLanguage: 'es',
+  sameAs: [
+    'https://x.com/rsamuelgarcia',
+    'https://github.com/resagar',
+    'https://resagar.com',
+  ],
+  knowsAbout: [
+    'Crianza',
+    'Parenting',
+    'TDAH (Trastorno por Déficit de Atención e Hiperactividad)',
+    'AACC (Altas Capacidades)',
+    'Escritura',
+    'Software Development',
+  ],
+};
+---
+<BaseLayout
+  title="Sobre el autor — Raíz Interna"
+  description="René García. Padre neurodivergente (TDAH + AACC) que escribe sobre la crianza, la escritura y la vida en bruto."
+  ogImage="/og/autor.png"
+  ogImageAlt="René García — padre, escritor, neurodivergente"
+  ogType="website"
+>
+  <Fragment slot="json-ld">
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </Fragment>
+
+  <article class="max-w-[680px] mx-auto px-6 py-12">
+    <header class="text-center mb-12">
+      <h1 class="font-display text-3xl md:text-4xl text-ink mb-3">René García</h1>
+      <p class="font-label uppercase text-xs text-muted tracking-[0.2em]">Padre · Escritor · Neurodivergente</p>
+    </header>
+
+    <div class="prose prose-lg max-w-none">
+      <p>
+        Soy padre. Tengo TDAH y altas capacidades (AACC). Escribo sobre la crianza y la vida en bruto, sin manual.
+      </p>
+      <p>
+        Raíz Interna es el lugar donde se cruzan esas tres cosas. No es un blog de consejos ni una guía para ser mejor padre siendo neurodivergente. Es el registro honesto de alguien que lo está intentando.
+      </p>
+      <p>
+        Si querés leer más sobre software, escritura como oficio y paternidad desde un ángulo más profesional, te dejo <a href="https://resagar.com" rel="noopener noreferrer">mi blog principal</a>.
+      </p>
+      <hr />
+      <p>
+        Podés encontrarme en <a href="https://x.com/rsamuelgarcia" rel="noopener noreferrer" target="_blank">X</a>, en <a href="https://github.com/resagar" rel="noopener noreferrer" target="_blank">GitHub</a>, o escribirme por mail.
+      </p>
+    </div>
+  </article>
+
+  <Footer
+    copyright="© 2024 RAÍZ INTERNA. Una publicación dedicada a lo lento."
+    links={[
+      { label: 'Sobre Nosotros', href: '#' },
+      { label: 'Newsletter', href: '#' },
+    ]}
+  />
+</BaseLayout>
