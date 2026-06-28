@@ -12,3 +12,14 @@ export async function getPublishedMemorias(): Promise<Post[]> {
 export function postUrl(post: Post): string {
   return `/memorias/${post.data.slug}`;
 }
+
+export function getMetadataLabel(post: Post): string {
+  const { series, part, category } = post.data;
+  if (series) {
+    if (part) {
+      return `${series} · Parte ${part}`;
+    }
+    return series;
+  }
+  return category.charAt(0).toUpperCase() + category.slice(1);
+}

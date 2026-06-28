@@ -4,6 +4,8 @@ slug: "bienvenida"
 summary: "Por qué existe este blog. Qué vas a encontrar acá. Qué no."
 publishedAt: 2026-06-28
 category: "crianza"
+series: "Año 1"
+part: "I"
 tags: ["bienvenida", "presentación"]
 ---
 

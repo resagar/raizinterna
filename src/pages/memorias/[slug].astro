@@ -3,7 +3,7 @@ import type { GetStaticPaths } from 'astro';
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Footer from '../../components/Footer.astro';
-import { getPublishedMemorias, postUrl } from '../../utils/posts';
+import { getPublishedMemorias, postUrl, getMetadataLabel } from '../../utils/posts';
 
 export const getStaticPaths = (async () => {
   const memorias = await getPublishedMemorias();
@@ -35,7 +35,7 @@ const formattedDate = `${d.getDate()} de ${months[d.getMonth()]}, ${d.getFullYea
 const isoDate = d.toISOString();
 const postUrlAbsolute = new URL(postUrl(post), Astro.site).toString();
 const postOgImage = new URL(post.data.ogImage ?? '/og/memorias.png', Astro.site).toString();
-const formattedCategory = post.data.category.charAt(0).toUpperCase() + post.data.category.slice(1);
+const metadataLabel = getMetadataLabel(post);
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -74,7 +74,7 @@ const jsonLd = {
   <main class="max-w-[640px] mx-auto px-6 py-16 md:py-24">
     <header class="text-center mb-16">
       <span class="font-body italic text-[1.1rem] text-gold block mb-4">
-        {formattedCategory}
+        {metadataLabel}
       </span>
       <h1 class="font-display text-[36px] md:text-[42px] leading-[1.2] text-ink mb-6 font-normal">
         {post.data.title}
