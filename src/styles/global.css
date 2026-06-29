@@ -62,14 +62,7 @@ h3 {
 
 a {
   color: var(--color-gold);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-  transition: text-decoration-thickness 0.15s ease;
-}
-
-a:hover {
-  text-decoration-thickness: 2px;
+  transition: color 0.15s ease;
 }
 
 hr {
@@ -111,4 +104,15 @@ hr {
 
 .prose p {
   text-align: justify;
+}
+
+.prose a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: text-decoration-thickness 0.15s ease, color 0.15s ease;
+}
+
+.prose a:hover {
+  text-decoration-thickness: 2px;
 }

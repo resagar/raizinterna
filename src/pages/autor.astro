@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Footer from '../components/Footer.astro';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -61,15 +60,5 @@ const jsonLd = {
         </p>
       </div>
     </article>
-  </Fragment>
-
-  <Fragment slot="footer">
-    <Footer
-      copyright="© 2024 RAÍZ INTERNA. Una publicación dedicada a lo lento."
-      links={[
-        { label: 'Sobre Nosotros', href: '#' },
-        { label: 'Newsletter', href: '#' },
-      ]}
-    />
   </Fragment>
 </BaseLayout>

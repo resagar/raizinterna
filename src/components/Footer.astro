@@ -1,41 +1,22 @@
 ---
-interface FooterLink {
-  label: string;
-  href: string;
-}
-
-interface Props {
-  variant?: 'default' | 'with-logo';
-  copyright: string;
-  links: FooterLink[];
-}
-
-const { variant = 'default', copyright, links } = Astro.props;
+const links = [
+  { label: 'Sobre el autor', href: '/autor' },
+];
 ---
 <footer class="w-full bg-ivory pt-12 pb-12">
   <div class="border-t border-line-soft w-1/2 mx-auto"></div>
   <div class="flex flex-col items-center justify-center max-w-[680px] mx-auto px-6 text-center mt-8 space-y-4">
-    {variant === 'with-logo' && (
-      <div class="font-logo font-light text-[32px] text-ink uppercase tracking-[0.2em] mb-2">
-        Raíz Interna
-      </div>
-    )}
     <p class="font-body text-base text-muted text-center">
-      {copyright}
+      © 2024 RAÍZ INTERNA. Una publicación dedicada a lo lento.
     </p>
-    <div class:list={['flex items-center', variant === 'with-logo' ? 'space-x-6' : 'gap-4']}>
-      {links.map((link, i) => (
-        <Fragment>
-          <a
-            href={link.href}
-            class="font-label uppercase text-xs tracking-[0.1em] text-muted hover:text-ink transition-colors no-underline hover:no-underline"
-          >
-            {link.label}
-          </a>
-          {variant === 'default' && i < links.length - 1 && (
-            <span class="text-muted opacity-30" aria-hidden="true">·</span>
-          )}
-        </Fragment>
+    <div class="flex items-center gap-4">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="font-label uppercase text-xs tracking-[0.1em] text-muted hover:text-ink hover:underline underline-offset-4 transition-all"
+        >
+          {link.label}
+        </a>
       ))}
     </div>
   </div>

@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -76,6 +77,6 @@ const ogImageURL = new URL(ogImage, Astro.site).toString();
     <div class="flex-1">
       <slot name="content" />
     </div>
-    <slot name="footer" />
+    <Footer />
   </body>
 </html>
