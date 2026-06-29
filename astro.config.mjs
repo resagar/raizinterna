@@ -60,6 +60,6 @@ export default defineConfig({
     },
 
     build: {
-        format: "directory",
+        format: "file",
     },
 });
