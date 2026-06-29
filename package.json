@@ -10,6 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "og:placeholders": "node scripts/generate-og-placeholders.mjs",
+    "favicon": "node scripts/generate-favicon.mjs",
     "astro": "astro"
   },
   "dependencies": {

@@ -14,14 +14,14 @@ const linkClass = (href: string) => {
 };
 ---
 <header class="w-full bg-ivory">
-  <div class="flex flex-col md:flex-row justify-between items-center w-full max-w-[680px] mx-auto px-6 py-5">
+  <div class="flex flex-col items-center md:flex-row md:justify-between md:items-center w-full max-w-[680px] mx-auto px-6 py-5 gap-4 md:gap-0">
     <a
       href="/"
       class="font-logo font-light text-2xl md:text-3xl text-gold tracking-[0.15em] uppercase whitespace-nowrap"
     >
       Raíz Interna
     </a>
-    <nav class="hidden md:flex items-center gap-8 mt-4 md:mt-0">
+    <nav class="flex items-center gap-8">
       {links.map((link) => (
         <a
           href={link.href}
@@ -34,26 +34,6 @@ const linkClass = (href: string) => {
         </a>
       ))}
     </nav>
-    <button
-      type="button"
-      class="md:hidden text-ink mt-4 md:mt-0"
-      aria-label="Abrir menú de navegación"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="w-6 h-6"
-      >
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    </button>
   </div>
-  <div class="border-t border-line-soft w-1/2 mx-auto"></div>
+  <div class="border-t border-line-soft w-3/4 md:max-w-[720px] mx-auto"></div>
 </header>
