@@ -71,8 +71,11 @@ const ogImageURL = new URL(ogImage, Astro.site).toString();
       href="/feed.xml"
     />
   </head>
-  <body class="bg-ivory text-ink antialiased min-h-screen">
+  <body class="bg-ivory text-ink antialiased min-h-screen flex flex-col">
     <Nav />
-    <slot />
+    <div class="flex-1">
+      <slot name="content" />
+    </div>
+    <slot name="footer" />
   </body>
 </html>

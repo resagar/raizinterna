@@ -101,6 +101,14 @@ hr {
   font-weight: 600;
 }
 
+.excerpt-quoted::before {
+  content: '\201C';
+}
+
+.excerpt-quoted::after {
+  content: '\201D';
+}
+
 .prose p {
   text-align: justify;
 }
