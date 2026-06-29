@@ -29,28 +29,28 @@ const jsonLd = {
   </Fragment>
 
   <Fragment slot="content">
-    <section class="max-w-[680px] mx-auto px-6">
+    <section aria-label="Memorias" class="max-w-[680px] mx-auto px-6">
       <header class="py-16 text-center">
-        <p class="font-label uppercase text-sm text-muted tracking-[0.2em]">
+        <h1 class="font-label uppercase text-sm text-muted tracking-[0.2em]">
           Historias reales de paternidad y mente intensa
-        </p>
+        </h1>
       </header>
 
       {memorias.length === 0 ? (
         <p class="text-center text-umber italic pb-16">Pronto habrá memorias acá.</p>
       ) : (
-        <div class="pb-20">
+        <ol class="list-none pl-0 pb-20">
           {memorias.map((m, i) => {
             const metadataLabel = getMetadataLabel(m);
             return (
-              <>
+              <li>
                 <article class="flex flex-col items-center text-center">
-                  <span class="font-body italic text-[18px] text-gold mb-2">
+                  <p class="font-body italic text-[18px] text-gold mb-2">
                     {metadataLabel}
-                  </span>
-                  <h3 class="font-display text-[22px] text-ink mb-4 leading-tight font-normal">
+                  </p>
+                  <h2 class="font-display text-[22px] text-ink mb-4 leading-tight font-normal">
                     {m.data.title}
-                  </h3>
+                  </h2>
                   {m.data.summary && (
                     <p class="font-body italic text-umber text-[18px] max-w-[540px] mb-6 excerpt-quoted">
                       {m.data.summary}
@@ -64,12 +64,12 @@ const jsonLd = {
                   </a>
                 </article>
                 {i < memorias.length - 1 && (
-                  <div class="w-1/2 mx-auto border-t border-line-soft my-16"></div>
+                  <hr class="my-16" />
                 )}
-              </>
+              </li>
             );
           })}
-        </div>
+        </ol>
       )}
     </section>
   </Fragment>

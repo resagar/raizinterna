@@ -1,120 +1,156 @@
 ---
-import type { GetStaticPaths } from 'astro';
-import { render } from 'astro:content';
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getPublishedMemorias, postUrl, getMetadataLabel } from '../../utils/posts';
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import {
+    getPublishedMemorias,
+    postUrl,
+    getMetadataLabel,
+} from "../../utils/posts";
 
 export const getStaticPaths = (async () => {
-  const memorias = await getPublishedMemorias();
-  return memorias.map((post, i) => ({
-    params: { slug: post.data.slug },
-    props: {
-      post,
-      prev: memorias[i + 1] ?? null,
-      next: memorias[i - 1] ?? null,
-    },
-  }));
+    const memorias = await getPublishedMemorias();
+    return memorias.map((post, i) => ({
+        params: { slug: post.data.slug },
+        props: {
+            post,
+            prev: memorias[i + 1] ?? null,
+            next: memorias[i - 1] ?? null,
+        },
+    }));
 }) satisfies GetStaticPaths;
 
 interface Props {
-  post: Awaited<ReturnType<typeof getPublishedMemorias>>[number];
-  prev: Awaited<ReturnType<typeof getPublishedMemorias>>[number] | null;
-  next: Awaited<ReturnType<typeof getPublishedMemorias>>[number] | null;
+    post: Awaited<ReturnType<typeof getPublishedMemorias>>[number];
+    prev: Awaited<ReturnType<typeof getPublishedMemorias>>[number] | null;
+    next: Awaited<ReturnType<typeof getPublishedMemorias>>[number] | null;
 }
 
 const { post, prev, next } = Astro.props as Props;
 const { Content } = await render(post);
 
 const months = [
-  'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
-  'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre',
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
 ];
 const d = post.data.publishedAt;
 const formattedDate = `${d.getDate()} de ${months[d.getMonth()]}, ${d.getFullYear()}`;
 const isoDate = d.toISOString();
 const postUrlAbsolute = new URL(postUrl(post), Astro.site).toString();
-const postOgImage = new URL(post.data.ogImage ?? '/og/memorias.png', Astro.site).toString();
+const postOgImage = new URL(
+    post.data.ogImage ?? "/og/memorias.png",
+    Astro.site,
+).toString();
 const metadataLabel = getMetadataLabel(post);
 
 const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: post.data.title,
-  description: post.data.summary ?? post.data.title,
-  datePublished: isoDate,
-  dateModified: isoDate,
-  url: postUrlAbsolute,
-  inLanguage: 'es',
-  author: {
-    '@id': 'https://raizinterna.resagar.com/autor#person',
-  },
-  publisher: {
-    '@id': 'https://raizinterna.resagar.com/autor#person',
-  },
-  mainEntityOfPage: {
-    '@type': 'WebPage',
-    '@id': postUrlAbsolute,
-  },
-  image: postOgImage,
-  ...(post.data.tags.length > 0 ? { keywords: post.data.tags.join(', ') } : {}),
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.data.title,
+    description: post.data.summary ?? post.data.title,
+    datePublished: isoDate,
+    dateModified: isoDate,
+    url: postUrlAbsolute,
+    inLanguage: "es",
+    author: {
+        "@id": "https://raizinterna.resagar.com/autor#person",
+    },
+    publisher: {
+        "@id": "https://raizinterna.resagar.com/autor#person",
+    },
+    mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": postUrlAbsolute,
+    },
+    image: postOgImage,
+    ...(post.data.tags.length > 0
+        ? { keywords: post.data.tags.join(", ") }
+        : {}),
 };
 ---
+
 <BaseLayout
-  title={post.data.title}
-  description={post.data.summary ?? post.data.title}
-  ogImage={post.data.ogImage ?? '/og/memorias.png'}
-  ogImageAlt={`Imagen de la memoria: ${post.data.title}`}
-  ogType="article"
+    title={post.data.title}
+    description={post.data.summary ?? post.data.title}
+    ogImage={post.data.ogImage ?? "/og/memorias.png"}
+    ogImageAlt={`Imagen de la memoria: ${post.data.title}`}
+    ogType="article"
 >
-  <Fragment slot="json-ld">
-    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  </Fragment>
+    <Fragment slot="json-ld">
+        <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    </Fragment>
 
-  <Fragment slot="content">
-    <main class="max-w-[640px] mx-auto px-6 py-16 md:py-24">
-      <header class="text-center mb-16">
-        <span class="font-body italic text-[1.1rem] text-gold block mb-4">
-          {metadataLabel}
-        </span>
-        <h1 class="font-display text-[36px] md:text-[42px] leading-[1.2] text-ink mb-6 font-normal">
-          {post.data.title}
-        </h1>
-        <p class="font-label uppercase text-[11px] tracking-[0.2em] text-muted mb-10">
-          {formattedDate}
-        </p>
-        <hr class="border-line-soft w-1/4 mx-auto" />
-      </header>
+    <Fragment slot="content">
+        <main class="max-w-[640px] mx-auto px-6 py-16 md:py-24">
+            <header class="text-center mb-16">
+                <span
+                    class="font-body italic text-[1.1rem] text-gold block mb-4"
+                >
+                    {metadataLabel}
+                </span>
+                <h1
+                    class="font-display text-[36px] md:text-[42px] leading-[1.2] text-ink mb-6 font-normal"
+                >
+                    {post.data.title}
+                </h1>
+                <p
+                    class="font-label uppercase text-[11px] leading-none tracking-[0.2em] text-muted mb-11"
+                >
+                    {formattedDate}
+                </p>
+                <hr class="border-line-soft w-1/4 mx-auto my-0" />
+            </header>
 
-      <div class="space-y-8 font-body text-[19px] leading-[1.8] text-body text-justify font-normal">
-        <Content />
-      </div>
-
-      <section class="mt-16">
-        <hr class="border-line-soft w-1/2 mx-auto mb-10" />
-        <div class="text-center italic font-body text-muted mb-12">— fin —</div>
-        <div class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 font-body text-gold text-base">
-          {prev ? (
-            <a
-              href={postUrl(prev)}
-              class="hover:underline decoration-1 transition-all duration-300"
+            <div
+                class="space-y-8 font-body text-[19px] leading-[1.8] text-body text-justify font-normal"
             >
-              ← Crónica anterior
-            </a>
-          ) : (
-            <span></span>
-          )}
-          {next ? (
-            <a
-              href={postUrl(next)}
-              class="hover:underline decoration-1 transition-all duration-300"
-            >
-              Siguiente crónica →
-            </a>
-          ) : (
-            <span></span>
-          )}
-        </div>
-      </section>
-    </main>
-  </Fragment>
+                <Content />
+            </div>
+
+            <section aria-label="Navegación entre memorias" class="mt-16">
+                <hr class="border-line-soft w-1/2 mx-auto my-0 mb-10" />
+                <div class="text-center italic font-body text-muted mb-12">
+                    — fin —
+                </div>
+                <div
+                    class="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 font-body text-gold text-base"
+                >
+                    {
+                        prev ? (
+                            <a
+                                href={postUrl(prev)}
+                                class="hover:underline decoration-1 transition-all duration-300"
+                            >
+                                ← Crónica anterior
+                            </a>
+                        ) : (
+                            <span />
+                        )
+                    }
+                    {
+                        next ? (
+                            <a
+                                href={postUrl(next)}
+                                class="hover:underline decoration-1 transition-all duration-300"
+                            >
+                                Siguiente crónica →
+                            </a>
+                        ) : (
+                            <span />
+                        )
+                    }
+                </div>
+            </section>
+        </main>
+    </Fragment>
 </BaseLayout>
