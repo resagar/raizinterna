@@ -1,5 +1,10 @@
 ---
 import '../styles/global.css';
+import loraLatinWoff2 from '@fontsource/lora/files/lora-latin-400-normal.woff2?url';
+import loraLatinItalicWoff2 from '@fontsource/lora/files/lora-latin-400-italic.woff2?url';
+import playfairLatinWoff2 from '@fontsource/playfair-display/files/playfair-display-latin-400-normal.woff2?url';
+import cormorantLatinWoff2 from '@fontsource/cormorant-garamond/files/cormorant-garamond-latin-300-normal.woff2?url';
+import workSansLatinWoff2 from '@fontsource/work-sans/files/work-sans-latin-400-normal.woff2?url';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 
@@ -21,7 +26,7 @@ const {
   canonical,
 } = Astro.props;
 
-const defaultCanonical = Astro.url.pathname.replace(/\/$/, '') || '/';
+const defaultCanonical = (Astro.url.pathname.replace(/\/$/, '').replace(/\.html$/, '')) || '/';
 const canonicalURL = new URL(canonical ?? defaultCanonical, Astro.site);
 const ogImageURL = new URL(ogImage, Astro.site).toString();
 ---
@@ -36,6 +41,12 @@ const ogImageURL = new URL(ogImage, Astro.site).toString();
 
     <title>{title}</title>
     <meta name="description" content={description} />
+
+    <link rel="preload" as="font" type="font/woff2" href={loraLatinWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={loraLatinItalicWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={playfairLatinWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={cormorantLatinWoff2} crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href={workSansLatinWoff2} crossorigin />
 
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -61,6 +72,7 @@ const ogImageURL = new URL(ogImage, Astro.site).toString();
 
     <slot name="json-ld" />
 
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
     <link rel="icon" href="/favicon.ico" sizes="any" />

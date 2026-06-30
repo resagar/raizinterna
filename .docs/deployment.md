@@ -2,7 +2,8 @@
 
 ## Entornos
 
-- **Producción**: `https://raizinterna.resagar.com` (subdominio del blog profesional [resagar.com](https://resagar.com), que ya está hosteado en Cloudflare Pages).
+- **Producción**: `https://raizinterna.xyz` (dominio oficial, registrado en Cloudflare).
+- **Alias legacy**: `https://raizinterna.resagar.com` (subdominio de [resagar.com](https://resagar.com), hosteado en Cloudflare Pages). Sigue activo como punto de entrada desde el blog profesional, pero **no** es el canónico — el canonical de cada página apunta a `raizinterna.xyz`.
 - **Preview local**: `pnpm preview` sirve el build estático en local.
 
 ## Target
@@ -21,9 +22,8 @@
 
 ## DNS
 
-- `raizinterna.resagar.com` es un subdominio de un dominio que ya está en Cloudflare.
-- Crear un registro CNAME en `resagar.com` apuntando `raizinterna` al target del proyecto Cloudflare Pages (ej. `raizinterna.pages.dev`).
-- Cloudflare Pages puede generar un cert SSL automático para el subdominio custom.
+- `raizinterna.xyz` es el dominio apex oficial. Configurar en Cloudflare Pages como "Custom domain".
+- `raizinterna.resagar.com` es un CNAME legacy dentro de `resagar.com` que apunta al mismo proyecto de Cloudflare Pages. Sirve el mismo contenido; el canonical y JSON-LD siempre apuntan a `raizinterna.xyz`.
 
 ## Comandos y sistemas
 

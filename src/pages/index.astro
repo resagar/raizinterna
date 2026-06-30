@@ -8,12 +8,12 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Raíz Interna',
-  url: 'https://raizinterna.resagar.com',
+  url: 'https://raizinterna.xyz',
   description:
     'Memorias de criar y pensar en voz alta. Historias de un padre neurodivergente (TDAH + AACC) sobre la crianza, la escritura y la vida en bruto.',
   inLanguage: 'es',
   author: {
-    '@id': 'https://raizinterna.resagar.com/autor#person',
+    '@id': 'https://raizinterna.xyz/autor#person',
   },
 };
 ---
@@ -29,7 +29,7 @@ const jsonLd = {
   </Fragment>
 
   <Fragment slot="content">
-    <section aria-label="Memorias" class="max-w-[680px] mx-auto px-6">
+    <main aria-label="Memorias" class="max-w-[680px] mx-auto px-6">
       <header class="py-16 text-center">
         <h1 class="font-label uppercase text-sm text-muted tracking-[0.2em]">
           Historias reales de paternidad y mente intensa
@@ -71,6 +71,6 @@ const jsonLd = {
           })}
         </ol>
       )}
-    </section>
+    </main>
   </Fragment>
 </BaseLayout>

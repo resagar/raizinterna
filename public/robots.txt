@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://raizinterna.resagar.com/sitemap-index.xml
+Sitemap: https://raizinterna.xyz/sitemap-index.xml

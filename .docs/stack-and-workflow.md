@@ -27,25 +27,27 @@
 
 `astro.config.mjs`:
 
-- `site: 'https://raizinterna.resagar.com'` — dominio del subdominio.
+- `site: 'https://raizinterna.xyz'` — dominio oficial. El subdominio `raizinterna.resagar.com` queda como alias para uso desde `resagar.com`.
 - `integrations: [sitemap({...})]` — `@astrojs/sitemap` con `filter` (excluye `/404`) y `serialize` (asigna `priority` y `changefreq` por URL).
 - `vite.plugins: [tailwindcss()]` — plugin de Tailwind 4.
 - `markdown.shikiConfig: { theme: 'monokai' }` — syntax highlighting.
-- `build.format: 'directory'` — cada ruta genera un directorio con `index.html` (ej. `dist/memorias/:slug/index.html`).
+- `build.format: 'file'` — cada ruta genera un archivo HTML (ej. `dist/memorias/:slug.html`). La URL canónica se construye sin la extensión.
 
-## Estructura del build (con `format: 'directory'`)
+## Estructura del build (con `format: 'file'`)
 
 ```
 dist/
 ├── index.html                          (home = feed de memorias)
-├── autor/index.html
-├── memorias/<slug>/index.html          (uno por memoria)
+├── autor.html
+├── memorias/<slug>.html                (uno por memoria)
 ├── feed.xml
 ├── sitemap-index.xml
 ├── sitemap-0.xml
 ├── robots.txt                          (copiado desde public/)
+├── _headers                            (copiado desde public/, cache + security)
 ├── 404.html
-├── icon.png, icon.svg                  (copiados desde public/)
+├── favicon-16x16.png, favicon-32x32.png, favicon.ico, favicon.svg, apple-touch-icon.png
+├── images/autor.jpg
 └── og/{home,autor,memorias}.png        (copiados desde public/, 1200×630)
 ```
 

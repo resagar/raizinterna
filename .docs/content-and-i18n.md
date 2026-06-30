@@ -50,7 +50,7 @@ memorias = defineCollection({
 
 ## RSS feed
 
-- URL: `https://raizinterna.resagar.com/feed.xml`.
+- URL: `https://raizinterna.xyz/feed.xml`.
 - Generado por `src/pages/feed.xml.ts` con `@astrojs/rss`.
 - Lista los **10 memorias más recientes** publicadas.
 - Metadata: `title: "Raíz Interna"`, `description: <tagline>`, `language: 'es-ES'`, `managingEditor` y `webMaster` con René García, autor `rsamuelgarcia@gmail.com (René Garcia)`.
@@ -61,7 +61,7 @@ memorias = defineCollection({
 
 - Generado por `@astrojs/sitemap` en build.
 - Salida: `dist/sitemap-index.xml` (índice) + `dist/sitemap-0.xml` (URLs).
-- `public/robots.txt` referencia `https://raizinterna.resagar.com/sitemap-0.xml`.
+- `public/robots.txt` referencia `https://raizinterna.xyz/sitemap-index.xml`.
 - **Incluye**:
   - `/` (priority 1.0, changefreq weekly o daily según frecuencia de publicación)
   - `/autor` (priority 0.5, changefreq monthly)

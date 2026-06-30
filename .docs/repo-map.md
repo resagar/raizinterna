@@ -2,7 +2,7 @@
 
 ## Proyecto
 
-- `astro.config.mjs`: configuración de Astro. Tiene `site: 'https://raizinterna.resagar.com'`, integración `@astrojs/sitemap` (filter+serialize), plugin Vite de Tailwind, `shikiConfig.theme: 'monokai'`, `build.format: 'directory'`.
+- `astro.config.mjs`: configuración de Astro. Tiene `site: 'https://raizinterna.xyz'`, integración `@astrojs/sitemap` (filter+serialize con `lastmod`), plugin Vite de Tailwind, `shikiConfig.theme: 'monokai'`, `build.format: 'file'`.
 - `tsconfig.json`: extiende `astro/tsconfigs/strict`, incluye todo salvo `dist/`.
 - `package.json`: dependencias para Astro 7, Tailwind 4 + typography, fonts (Cormorant Garamond, Playfair Display, Lora, Work Sans), `sharp`, `@astrojs/rss`, `@astrojs/sitemap`, `@astrojs/mdx`. DevDeps: `@astrojs/check`, `typescript`, `@tailwindcss/typography`, `@tailwindcss/vite`, `tailwindcss`.
 - `pnpm-workspace.yaml`: presente, permite `esbuild` y `sharp`. Sin paquetes workspace declarados.

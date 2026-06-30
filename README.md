@@ -40,4 +40,4 @@ Si sos un agente de IA, empezá por `AGENTS.md` y descubrí el contexto del proy
 
 ## Estado
 
-Proyecto en bootstrap. Estructura base + SEO + docs + content collection armada. Falta: contenido real (más allá de la memoria de ejemplo), OG images definitivas, y deploy a Cloudflare Pages bajo `raizinterna.resagar.com`.
+Proyecto en bootstrap. Estructura base + SEO + docs + content collection armada. Falta: contenido real (más allá de la memoria de ejemplo), OG images definitivas, y deploy a Cloudflare Pages bajo `raizinterna.xyz`.

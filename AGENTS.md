@@ -31,7 +31,7 @@ Administralo con `astro dev stop`, `astro dev status` y `astro dev logs`.
 
 ## Dominio y URLs
 
-- Dominio: `https://raizinterna.resagar.com` (subdominio de resagar.com).
+- Dominio: `https://raizinterna.xyz` (dominio oficial). El subdominio `raizinterna.resagar.com` se mantiene como alias para uso desde `resagar.com`.
 - Estructura: `/` (home = feed de memorias), `/memorias/:slug`, `/autor`, `/feed.xml`, `/sitemap-0.xml`, `/404`.
 - `astro.config.mjs` tiene `site` y `build.format: 'directory'`. Cualquier cambio de URL debe pasar por redirects.
 

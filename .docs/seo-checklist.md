@@ -1,6 +1,6 @@
 # SEO Checklist
 
-Esta es la checklist exhaustiva de SEO que el blog implementa. La fuente original es el setup de [`resagar`](https://github.com/resagar/resagar), adaptado al subdominio `raizinterna.resagar.com` y a la estructura de URLs `/memorias/:slug`.
+Esta es la checklist exhaustiva de SEO que el blog implementa. La fuente original es el setup de [`resagar`](https://github.com/resagar/resagar), adaptado al dominio `raizinterna.xyz` y a la estructura de URLs `/memorias/:slug`.
 
 > Cada bloque explica **qué** va, **dónde** va, y **por qué** se hace así. Si en el futuro agregás una nueva página, tenés que cubrir todos los bloques que correspondan.
 
@@ -93,10 +93,10 @@ Cada página incluye un `<script type="application/ld+json">` con su schema corr
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Raíz Interna',
-  url: 'https://raizinterna.resagar.com',
+  url: 'https://raizinterna.xyz',
   description: '<tagline>',
   inLanguage: 'es',
-  author: { '@id': 'https://raizinterna.resagar.com/autor#person' }
+  author: { '@id': 'https://raizinterna.xyz/autor#person' }
 }
 ```
 
@@ -106,10 +106,10 @@ Cada página incluye un `<script type="application/ld+json">` con su schema corr
 {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': 'https://raizinterna.resagar.com/autor#person',  // el home apunta a este @id
+  '@id': 'https://raizinterna.xyz/autor#person',  // el home apunta a este @id
   name: 'René García',
   jobTitle: 'Padre, escritor, neurodivergente',
-  url: 'https://raizinterna.resagar.com/autor',
+  url: 'https://raizinterna.xyz/autor',
   description: '<bio corta>',
   inLanguage: 'es',
   sameAs: [
@@ -139,13 +139,13 @@ Cada página incluye un `<script type="application/ld+json">` con su schema corr
   description: post.data.summary ?? post.data.title,
   datePublished: post.data.publishedAt.toISOString(),
   dateModified: post.data.publishedAt.toISOString(),  // por ahora = datePublished
-  url: 'https://raizinterna.resagar.com/memorias/' + post.data.slug,
+  url: 'https://raizinterna.xyz/memorias/' + post.data.slug,
   inLanguage: 'es',
-  author:   { '@id': 'https://raizinterna.resagar.com/autor#person' },
-  publisher:{ '@id': 'https://raizinterna.resagar.com/autor#person' },
+  author:   { '@id': 'https://raizinterna.xyz/autor#person' },
+  publisher:{ '@id': 'https://raizinterna.xyz/autor#person' },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': 'https://raizinterna.resagar.com/memorias/' + post.data.slug
+    '@id': 'https://raizinterna.xyz/memorias/' + post.data.slug
   },
   image: ogImageURL,
   ...(post.data.tags.length > 0 ? { keywords: post.data.tags.join(', ') } : {})
@@ -249,10 +249,10 @@ sitemap({
   serialize: (item) => {
     const url = item.url.replace(/\/$/, '') || '/';
     const normalized = { ...item, url };
-    if (url === 'https://raizinterna.resagar.com') {
+    if (url === 'https://raizinterna.xyz') {
       return { ...normalized, priority: 1.0, changefreq: 'weekly' };
     }
-    if (url === 'https://raizinterna.resagar.com/autor') {
+    if (url === 'https://raizinterna.xyz/autor') {
       return { ...normalized, priority: 0.5, changefreq: 'monthly' };
     }
     if (/^https:\/\/raizinterna\.resagar\.com\/memorias\/[^/]+$/.test(url)) {
@@ -266,7 +266,7 @@ sitemap({
 ### Reglas
 
 - Output: `dist/sitemap-index.xml` + `dist/sitemap-0.xml`.
-- `public/robots.txt` referencia `https://raizinterna.resagar.com/sitemap-0.xml`.
+- `public/robots.txt` referencia `https://raizinterna.xyz/sitemap-0.xml`.
 - `/404` se excluye explícitamente con `filter`.
 - Páginas de paginación 2+ (cuando se agreguen) también se excluyen y reciben `noindex, follow`.
 - Priority y changefreq son **sugerencias** para crawlers; Google las ignora, pero Bing y otros las usan.
@@ -281,7 +281,7 @@ sitemap({
 User-agent: *
 Allow: /
 
-Sitemap: https://raizinterna.resagar.com/sitemap-0.xml
+Sitemap: https://raizinterna.xyz/sitemap-0.xml
 ```
 
 Mínimo, suficiente. No se bloquea nada en MVP (sin admin, sin áreas privadas).
@@ -294,7 +294,7 @@ Cuando la lista de memorias crezca, se puede paginar:
 
 - `/memorias/2`+ con:
   - `<meta name="robots" content="noindex, follow">` en el slot `head` de `BaseLayout`.
-  - `<link rel="canonical" href="https://raizinterna.resagar.com/">` apuntando al home.
+  - `<link rel="canonical" href="https://raizinterna.xyz/">` apuntando al home.
   - `<link rel="prev">` / `<link rel="next">` con las URLs de las páginas adyacentes.
 - Excluir del sitemap con `filter` en `astro.config.mjs`.
 
@@ -340,7 +340,7 @@ El home actual (`/`) no tiene paginación: muestra todas las memorias. Si en el 
 
 Antes de hacer deploy, verificar:
 
-- [ ] `astro.config.mjs` tiene `site: 'https://raizinterna.resagar.com'`.
+- [ ] `astro.config.mjs` tiene `site: 'https://raizinterna.xyz'`.
 - [ ] `public/robots.txt` apunta al sitemap correcto.
 - [ ] `BaseLayout` está en TODAS las páginas (incluso 404).
 - [ ] Cada página pasa `ogImage` + `ogImageAlt` con valores reales.

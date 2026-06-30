@@ -7,6 +7,7 @@ import {
     postUrl,
     getMetadataLabel,
 } from "../../utils/posts";
+import { readingTimeMinutes, readingTimeISO } from "../../utils/reading";
 
 export const getStaticPaths = (async () => {
     const memorias = await getPublishedMemorias();
@@ -52,6 +53,9 @@ const postOgImage = new URL(
     Astro.site,
 ).toString();
 const metadataLabel = getMetadataLabel(post);
+const minutes = readingTimeMinutes(post.body);
+const readingTimeLabel = `${minutes} min de lectura`;
+const readingTimeSchema = readingTimeISO(minutes);
 
 const jsonLd = {
     "@context": "https://schema.org",
@@ -61,12 +65,14 @@ const jsonLd = {
     datePublished: isoDate,
     dateModified: isoDate,
     url: postUrlAbsolute,
+    articleSection: post.data.category,
+    timeRequired: readingTimeSchema,
     inLanguage: "es",
     author: {
-        "@id": "https://raizinterna.resagar.com/autor#person",
+        "@id": "https://raizinterna.xyz/autor#person",
     },
     publisher: {
-        "@id": "https://raizinterna.resagar.com/autor#person",
+        "@id": "https://raizinterna.xyz/autor#person",
     },
     mainEntityOfPage: {
         "@type": "WebPage",
@@ -104,9 +110,9 @@ const jsonLd = {
                     {post.data.title}
                 </h1>
                 <p
-                    class="font-label uppercase text-[11px] leading-none tracking-[0.2em] text-muted mb-11"
+                    class="font-label uppercase text-[11px] leading-none tracking-[0.2em] text-muted mb-6"
                 >
-                    {formattedDate}
+                    {formattedDate} · por René García · {readingTimeLabel}
                 </p>
                 <hr class="border-line-soft w-1/4 md:w-1/6 mx-auto my-0" />
             </header>
@@ -121,7 +127,7 @@ const jsonLd = {
                 <hr class="border-line-soft w-1/2 mx-auto my-0 mb-10" />
                 <div class="text-center mb-12">
                     <p class="italic font-body text-lg text-muted">
-                        — René García —
+                        — Rene Garcia —
                     </p>
                 </div>
                 <div

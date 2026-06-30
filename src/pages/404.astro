@@ -1,23 +1,41 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
+
 <BaseLayout
-  title="No encontrado — Raíz Interna"
-  description="La página que buscás no existe o fue movida."
-  ogImage="/og/home.png"
-  ogImageAlt="Raíz Interna — memorias de criar y pensar en voz alta"
-  ogType="website"
+    title="No encontrado — Raíz Interna"
+    description="La página que buscás no existe o fue movida."
+    ogImage="/og/home.png"
+    ogImageAlt="Raíz Interna — memorias de criar y pensar en voz alta"
+    ogType="website"
 >
-  <Fragment slot="content">
-    <section aria-label="No encontrado" class="max-w-[680px] mx-auto px-6 py-20 sm:py-32 text-center">
-      <p class="font-label uppercase text-xs text-muted tracking-[0.2em] mb-6">404</p>
-      <h1 class="font-display text-3xl md:text-4xl text-ink mb-6">No encontrado</h1>
-      <p class="text-muted mb-8">La página que buscás no existe o fue movida.</p>
-      <p>
-        <a href="/" class="font-label uppercase text-xs tracking-[0.1em] text-gold hover:opacity-70 transition-opacity">
-          Volver al inicio
-        </a>
-      </p>
-    </section>
-  </Fragment>
+    <Fragment slot="head">
+        <meta name="robots" content="noindex, follow" />
+    </Fragment>
+    <Fragment slot="content">
+        <main
+            aria-label="No encontrado"
+            class="max-w-[680px] mx-auto px-6 py-20 sm:py-32 text-center"
+        >
+            <p
+                class="font-label uppercase text-xs text-muted tracking-[0.2em] mb-6"
+            >
+                404
+            </p>
+            <h1 class="font-display text-3xl md:text-4xl text-ink mb-6">
+                No encontrado
+            </h1>
+            <p class="text-muted mb-8">
+                La página que buscás no existe o fue movida.
+            </p>
+            <p>
+                <a
+                    href="/"
+                    class="font-label uppercase text-xs tracking-[0.1em] text-gold hover:opacity-70 transition-opacity"
+                >
+                    Volver al inicio
+                </a>
+            </p>
+        </main>
+    </Fragment>
 </BaseLayout>
