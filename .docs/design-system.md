@@ -34,7 +34,7 @@ El sistema de diseño de Raíz Interna está definido en el proyecto Stitch **"R
 | `ink` | `#1e1810` | Texto principal (cuerpo, títulos) |
 | `muted` | `#4c463f` | Texto secundario, tagline, links de nav inactivos |
 | `umber` | `#5a4e3a` | Texto de excerpts, signature italic, copy muted en footer |
-| `gold` | `#a17e42` | Acento: metadata italic de cards, links "LEER", CTAs |
+| `gold` | `#8a6a36` | Acento: metadata italic de cards, links "LEER", CTAs (4.68:1 sobre ivory, pasa WCAG AA) |
 | `line` | `#7d766e` | Outline (bordes sutiles si se usan) |
 | `line-soft` | `#e4dace` | Divisores horizontales 50% (HRs entre cards, arriba del footer) |
 

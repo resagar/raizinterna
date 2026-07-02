@@ -32,14 +32,14 @@ Administralo con `astro dev stop`, `astro dev status` y `astro dev logs`.
 ## Dominio y URLs
 
 - Dominio: `https://raizinterna.xyz` (dominio oficial). El subdominio `raizinterna.resagar.com` se mantiene como alias para uso desde `resagar.com`.
-- Estructura: `/` (home = feed de memorias), `/memorias/:slug`, `/autor`, `/feed.xml`, `/sitemap-0.xml`, `/404`.
-- `astro.config.mjs` tiene `site` y `build.format: 'directory'`. Cualquier cambio de URL debe pasar por redirects.
+- Estructura: `/` (home = feed de memorias), `/memorias/:slug`, `/autor`, `/feed.xml`, `/sitemap-index.xml`, `/404`.
+- `astro.config.mjs` tiene `site` y `build.format: 'file'`. Cualquier cambio de URL debe pasar por redirects.
 
 ## Sistema de diseño
 
 Ver `.docs/design-system.md` para los tokens completos. Resumen:
 
-- Paleta: ivory `#faf7f2` (fondo), warm brown `#1e1810` (texto), muted `#4c463f`, umber `#5a4e3a` (excerpts), amber gold `#a17e42` (acento para links e italic metadata), divider `#e4dace`.
+- Paleta: ivory `#faf7f2` (fondo), warm brown `#1e1810` (texto), muted `#4c463f`, umber `#5a4e3a` (excerpts), amber gold `#8a6a36` (acento para links e italic metadata, 4.68:1 sobre ivory — pasa WCAG AA), divider `#e4dace`.
 - Forma: sharp 0px, sin sombras, layout de columna única max 680px.
 - Sección vertical padding: 5rem. Mobile: 24px margin, 3rem padding.
 - Componentes: text-only/outlined buttons, links con underline, HRs al 50% del container, metadata en small caps con middle dot.
@@ -64,7 +64,7 @@ Ver `.docs/seo-checklist.md` para la checklist exhaustiva. Resumen:
 - `src/utils/posts.ts`: helpers `getPublishedMemorias()` y `postUrl(post)`.
 - `src/styles/global.css`: Tailwind 4 + fonts + typography.
 - `public/`: `robots.txt`, favicon, `og/{home,autor,memorias}.png`.
-- `astro.config.mjs`: site, sitemap (filter+serialize), Tailwind, shiki, `build.format: 'directory'`.
+- `astro.config.mjs`: site, sitemap (filter+serialize), Tailwind, shiki, `build.format: 'file'`.
 
 ## Documentación
 

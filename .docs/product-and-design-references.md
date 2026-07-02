@@ -9,7 +9,7 @@ El proyecto de diseño vive en **Google Stitch** bajo el ID `projects/8094559307
 El `designMd` exportado por Stitch define:
 
 - **Brand**: Minimalist Literary / slow-web. Quietud, calidez, precisión editorial, tactilidad.
-- **Paleta**: ivory `#faf7f2`, warm brown `#1e1810`, muted `#4c463f`, umber `#5a4e3a`, amber gold `#a17e42` (acento), outline `#7d766e`, divider `#e4dace`. Los tokens reales aplicados son los overrides de Stitch (`overrideNeutralColor`, `overridePrimaryColor`, `overrideSecondaryColor`, `on-tertiary-container`, `divider-light`), no los `namedColors` originales.
+- **Paleta**: ivory `#faf7f2`, warm brown `#1e1810`, muted `#4c463f`, umber `#5a4e3a`, amber gold `#8a6a36` (acento), outline `#7d766e`, divider `#e4dace`. El gold fue oscurecido desde `#a17e42` (3.5:1 sobre ivory, fallaba WCAG AA) a `#8a6a36` (4.68:1, pasa WCAG AA). Los tokens reales aplicados son los overrides de Stitch (`overrideNeutralColor`, `overridePrimaryColor`, `overrideSecondaryColor`, `on-tertiary-container`, `divider-light`), no los `namedColors` originales.
 - **Tipografía base de Stitch**:
   - Headings: **Playfair Display** (28/36/48px).
   - Body: **Source Serif 4** (18/20px, line-height 1.75).
@@ -40,21 +40,24 @@ El proyecto **sobrescribe** la tipografía de Stitch con tres familias elegidas 
 | (no existe en Stitch todavía) | `src/pages/autor.astro` | Bio corta. Pendiente: generarla con Stitch si se quiere una pantalla de referencia. |
 | (no existe en Stitch) | `src/pages/404.astro` | Estándar: BaseLayout + mensaje + link al home. |
 
-## Componentes pendientes de crear
+## Componentes
+
+- `src/components/Nav.astro` — nav del sitio con brand "Raíz Interna" en Cormorant Garamond + links.
+- `src/components/Footer.astro` — footer minimalista con línea de copyright y link "Sobre el autor".
+
+## Componentes pendientes
 
 Conforme se necesiten, siguiendo la convención de "Flat & Layerless":
 
-- `src/components/HeroHeader.astro` — hero del home con "Raíz Interna" en Cormorant Garamond + tagline + (opcional) avatar.
-- `src/components/PostCard.astro` — card de memoria en el listado del home. Sin border, sin sombra. Headline + fecha + excerpt separados por whitespace.
-- `src/components/PostMeta.astro` — fila de metadata (fecha · tags · categoría) en Work Sans small caps, separados por middle dot.
-- `src/components/Nav.astro` — nav del sitio (futuro). Brand "Raíz Interna" en Cormorant Garamond + links a `/autor` y `/feed.xml`.
-- `src/components/Footer.astro` — footer minimalista (futuro).
+- `src/components/PostCard.astro` — card de memoria en el listado del home. Sin border, sin sombra. Headline + fecha + excerpt separados por whitespace. (Por ahora el home renderiza el card inline en `index.astro`.)
+- `src/components/PostMeta.astro` — fila de metadata (fecha · autor · tiempo de lectura) en Work Sans small caps, separados por middle dot. (Por ahora la metadata se renderiza inline en `[slug].astro`.)
+- `src/components/HeroHeader.astro` — hero del home con "Raíz Interna" en Cormorant Garamond + tagline + (opcional) avatar. (Por ahora el hero es un header simple en `index.astro`.)
 
 ## Assets reutilizables (placeholders en MVP)
 
 | Asset | Estado | Notas |
 |---|---|---|
-| `public/icon.svg`, `public/icon.png` | Del starter de Astro | Pendiente: regenerar con paleta y tipografía del blog |
+| `public/favicon.svg`, `favicon-16x16.png`, `favicon-32x32.png`, `apple-touch-icon.png`, `favicon.ico` | Generados con `scripts/generate-favicon.mjs` desde `logo.jpeg` | Listos y referenciados en `BaseLayout.astro` (16/32/180 + SVG + ICO) |
 | `public/og/home.png` | Placeholder 1200×630 | Generar con Stitch o HCTI antes de producción |
 | `public/og/autor.png` | Placeholder 1200×630 | Generar con Stitch o HCTI antes de producción |
 | `public/og/memorias.png` | Placeholder 1200×630 | Generar con Stitch o HCTI antes de producción |
@@ -71,5 +74,4 @@ Conforme se necesiten, siguiendo la convención de "Flat & Layerless":
 
 - Generar la página `/autor` en Stitch (no existe todavía) y mapearla a `src/pages/autor.astro` si se quiere diseño de referencia.
 - Generar las OG images finales (placeholders en MVP).
-- Definir si se quiere una nav fija o que aparezca solo en el hero.
-- Decidir si se quiere un favicon custom o se queda con el del starter.
+- Decidir si se quiere una nav fija o que aparezca solo en el hero.

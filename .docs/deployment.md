@@ -28,14 +28,16 @@
 ## Comandos y sistemas
 
 - Build: `pnpm build` produce `./dist/` con el sitio estático.
-- Estructura del output (con `build.format: 'directory'`):
+- Estructura del output (con `build.format: 'file'`):
   - `dist/index.html` (home)
-  - `dist/autor/index.html`
-  - `dist/memorias/<slug>/index.html` (un directorio por memoria)
+  - `dist/autor.html`
+  - `dist/memorias/<slug>.html` (un archivo por memoria)
   - `dist/404.html`
   - `dist/feed.xml`
   - `dist/sitemap-index.xml` + `dist/sitemap-0.xml`
   - `dist/robots.txt` (copiado desde `public/`)
+  - `dist/_headers` (copiado desde `public/`, cache + security headers)
+  - `dist/images/autor.jpg` (copiado desde `public/`)
   - `dist/og/{home,autor,memorias}.png` (copiados desde `public/`, 1200×630)
 - Deploy con Wrangler CLI: `pnpm dlx wrangler pages deploy dist`.
 
@@ -56,7 +58,8 @@
 ## Pendientes
 
 - Configurar Cloudflare Pages project + Git integration.
-- Crear el subdominio `raizinterna.resagar.com` (registro CNAME + cert SSL en Cloudflare).
+- Configurar `raizinterna.xyz` como custom domain en Cloudflare Pages.
+- Verificar que `raizinterna.resagar.com` siga apuntando al mismo proyecto (CNAME en `resagar.com`).
 - Generar las OG images finales y reemplazar los placeholders.
 - Configurar el repo git con un `origin` (no tiene aún).
 - (Opcional) Configurar Cloudflare Web Analytics o similar — no en MVP.

@@ -20,6 +20,20 @@ El `BaseLayout.astro` (`src/layouts/BaseLayout.astro`) es el único lugar donde 
 <meta name="theme-color" content="#faf7f2" />  <!-- ivory, matchea el fondo -->
 ```
 
+### Font preload (performance)
+
+Para reducir el FOUT/FOIT, el `<head>` incluye 5 preloads de los woff2 locales que se usan en first paint:
+
+```astro
+<link rel="preload" as="font" type="font/woff2" href={loraLatinWoff2} crossorigin />
+<link rel="preload" as="font" type="font/woff2" href={loraLatinItalicWoff2} crossorigin />
+<link rel="preload" as="font" type="font/woff2" href={playfairLatinWoff2} crossorigin />
+<link rel="preload" as="font" type="font/woff2" href={cormorantLatinWoff2} crossorigin />
+<link rel="preload" as="font" type="font/woff2" href={workSansLatinWoff2} crossorigin />
+```
+
+Las URLs se importan via `@fontsource/.../files/*.woff2?url` y Vite las hashea en build. Los archivos finales están en `dist/_astro/*.woff2` con cache de 1 año (ver `public/_headers`).
+
 ### Title y description
 
 ```astro
@@ -59,7 +73,7 @@ El `BaseLayout.astro` (`src/layouts/BaseLayout.astro`) es el único lugar donde 
 <link rel="canonical" href={canonicalURL} />
 ```
 
-`canonicalURL` se calcula con `new URL(canonical ?? defaultCanonical, Astro.site)`. Si no se pasa `canonical`, se usa el `pathname` actual (con trailing slash removido).
+`canonicalURL` se calcula con `new URL(canonical ?? defaultCanonical, Astro.site)`. Si no se pasa `canonical`, se usa el `pathname` actual (con trailing slash y extensión `.html` removidos, para matchear la URL servida por Cloudflare Pages con `build.format: 'file'`).
 
 ### RSS discovery
 
@@ -70,9 +84,11 @@ El `BaseLayout.astro` (`src/layouts/BaseLayout.astro`) es el único lugar donde 
 ### Favicon
 
 ```astro
-<link rel="icon" href="/icon.svg" type="image/svg+xml" />
-<link rel="icon" href="/icon.png" type="image/png" />
-<link rel="apple-touch-icon" href="/icon.png" />
+<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+<link rel="icon" href="/favicon.ico" sizes="any" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 ```
 
 ### Slots
@@ -204,7 +220,7 @@ Endpoint: `/feed.xml` vía `src/pages/feed.xml.ts` con `@astrojs/rss`.
 ```ts
 import rss from '@astrojs/rss';
 import type { APIContext } from 'astro';
-import { getPublishedMemorias, memoriaUrl } from '../utils/posts';
+import { getPublishedMemorias, postUrl } from '../utils/posts';
 
 export async function GET(context: APIContext) {
   const memorias = (await getPublishedMemorias()).slice(0, 10);
@@ -213,16 +229,16 @@ export async function GET(context: APIContext) {
     title: 'Raíz Interna',
     description: '<tagline>',
     site: context.site!,
-    language: 'es-ES',
     customData:
+      '<language>es-ES</language>' +
       '<managingEditor>rsamuelgarcia@gmail.com (René Garcia)</managingEditor>' +
       '<webMaster>rsamuelgarcia@gmail.com (René Garcia)</webMaster>',
-    items: memorias.map((m) => ({
-      title: m.data.title,
-      pubDate: m.data.publishedAt,
-      description: m.data.summary ?? '',
-      link: new URL(memoriaUrl(m), context.site).toString(),
-      categories: [m.data.category],
+    items: memorias.map((post) => ({
+      title: post.data.title,
+      pubDate: post.data.publishedAt,
+      description: post.data.summary ?? '',
+      link: new URL(postUrl(post), context.site).toString(),
+      categories: [post.data.category],
       author: 'rsamuelgarcia@gmail.com (René Garcia)',
     })),
     stylesheet: false,
@@ -233,7 +249,7 @@ export async function GET(context: APIContext) {
 ### Reglas
 
 - Máximo 10 items (los más recientes).
-- `language: 'es-ES'` (español de España, no `es` genérico — matchea `og:locale`).
+- `<language>es-ES</language>` (español de España, no `es` genérico — matchea `og:locale`). Se setea via `customData` porque `@astrojs/rss` v4 no expone `language` como prop tipada.
 - `managingEditor` y `webMaster` con el formato `"email (nombre)"` (RFC-2822 style).
 - `link` siempre URL absoluta (no relativa).
 
@@ -266,10 +282,11 @@ sitemap({
 ### Reglas
 
 - Output: `dist/sitemap-index.xml` + `dist/sitemap-0.xml`.
-- `public/robots.txt` referencia `https://raizinterna.xyz/sitemap-0.xml`.
+- `public/robots.txt` referencia `https://raizinterna.xyz/sitemap-index.xml`.
 - `/404` se excluye explícitamente con `filter`.
 - Páginas de paginación 2+ (cuando se agreguen) también se excluyen y reciben `noindex, follow`.
 - Priority y changefreq son **sugerencias** para crawlers; Google las ignora, pero Bing y otros las usan.
+- **`lastmod` per-item no se incluye**: `@astrojs/sitemap` v3+ no expone `entry` data al `serialize`, así que el `lastmod` se setea globalmente (o se omite). Para per-item `lastmod` futuro, considerar un endpoint custom `src/pages/sitemap-0.xml.ts`.
 
 ---
 
@@ -281,7 +298,7 @@ sitemap({
 User-agent: *
 Allow: /
 
-Sitemap: https://raizinterna.xyz/sitemap-0.xml
+Sitemap: https://raizinterna.xyz/sitemap-index.xml
 ```
 
 Mínimo, suficiente. No se bloquea nada en MVP (sin admin, sin áreas privadas).
@@ -317,7 +334,7 @@ El home actual (`/`) no tiene paginación: muestra todas las memorias. Si en el 
 
 - **Slugs explícitos en el frontmatter**, no derivados del filename. Esto permite renombrar el archivo `.md` sin romper URLs.
 - **No incluir fecha en la URL**. A diferencia de `resagar` (que usa `/YYYY/MM/slug` por compatibilidad con su versión Rails), Raíz Interna es un blog íntimo: la fecha no aporta SEO significativo, hace las URLs más largas, y mete ruido cronológico donde no hace falta.
-- **`build.format: 'directory'`** — cada ruta genera un directorio. `/memorias/foo` → `dist/memorias/foo/index.html`. Esto se siente nativo y no requiere trailing slash.
+- **`build.format: 'file'`** — cada ruta genera un archivo HTML. `/memorias/foo` → `dist/memorias/foo.html`. La URL canónica se construye sin la extensión `.html` en `BaseLayout.astro` (con `.replace(/\.html$/, '')`). Sirve directo a `/memorias/foo` sin trailing slash.
 - **Si en el futuro se cambia la estructura**, configurar redirects en `astro.config.mjs` con `redirects: { ... }` para no perder backlinks.
 
 ---

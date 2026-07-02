@@ -44,7 +44,7 @@ memorias = defineCollection({
 `src/utils/memorias.ts` (o `posts.ts` si se prefiere el nombre de `resagar`):
 
 - `getPublishedMemorias()` — `getCollection('memorias')`, filtra `published !== false`, ordena desc por `publishedAt`.
-- `memoriaUrl(memoria)` — `return '/memorias/' + memoria.data.slug`.
+- `postUrl(post)` — `return '/memorias/' + post.data.slug`.
 
 `resagar` usa `posts.ts` y `postUrl(post)`. Acá seguimos el patrón (mismo nombre) para mantener consistencia entre los dos proyectos, pero los nombres semánticos podrían ser `memorias.ts` y `memoriaUrl()`. **Decisión**: usar `posts.ts` y `postUrl()` por consistencia con `resagar`. Si en el futuro hace ruido, renombrar en una sola migración.
 
@@ -55,7 +55,7 @@ memorias = defineCollection({
 - Lista los **10 memorias más recientes** publicadas.
 - Metadata: `title: "Raíz Interna"`, `description: <tagline>`, `language: 'es-ES'`, `managingEditor` y `webMaster` con René García, autor `rsamuelgarcia@gmail.com (René Garcia)`.
 - Cada item: `title`, `pubDate`, `description`, `link` (URL absoluta), `categories: [categoria]`, `author`.
-- `BaseLayout.astro` enlaza el feed con `<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Raíz Interna">`. La nav debe tener un botón que apunte a `/feed.xml`.
+- `BaseLayout.astro` enlaza el feed con `<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Raíz Interna">`. (No hay botón en la nav que apunte al feed en MVP; los lectores lo descubren vía el `<link>` en el head.)
 
 ## Sitemap
 

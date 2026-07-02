@@ -17,7 +17,7 @@ Astro usa **file-based routing** dentro de `src/pages/`. Cada archivo `.astro` s
 - `src/pages/404.astro` → 404 (servido automáticamente por Astro para URLs inexistentes)
 - `src/pages/feed.xml.ts` → `/feed.xml` (endpoint RSS)
 
-Con `build.format: 'directory'`, cada ruta se renderiza como un directorio con `index.html`.
+Con `build.format: 'file'`, cada ruta se renderiza como un archivo HTML individual (ej. `dist/memorias/foo.html`). La URL canónica se construye sin la extensión `.html` en `BaseLayout.astro`.
 
 Más info: https://docs.astro.build/en/guides/routing/
 

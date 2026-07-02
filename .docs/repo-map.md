@@ -8,7 +8,7 @@
 - `pnpm-workspace.yaml`: presente, permite `esbuild` y `sharp`. Sin paquetes workspace declarados.
 - `pnpm-lock.yaml`: lockfile de pnpm.
 - `opencode.json`: configuración de opencode con MCP servers (`hcti` para generar OG images, `stitch` para diseño).
-- `public/`: assets estáticos servidos tal cual. Contiene favicon (`icon.png`, `icon.svg`), `robots.txt` y `og/` con OG images (`home`, `autor`, `memorias` — placeholders en MVP).
+- `public/`: assets estáticos servidos tal cual. Contiene favicon (16/32/180 + SVG + ICO generados desde `logo.jpeg` con `scripts/generate-favicon.mjs`), `robots.txt`, `_headers` (cache + security para Cloudflare Pages), `images/autor.jpg` (foto del autor, 600x600, 41KB) y `og/` con OG images (`home`, `autor`, `memorias` — placeholders en MVP).
 - `node_modules/`: dependencias instaladas. No trackeado.
 - `.git/`, `.gitignore`, `.vscode/`: control de versiones y editor.
 
@@ -21,13 +21,14 @@
   - `feed.xml.ts`: endpoint RSS con las 10 memorias más recientes.
   - `404.astro`: página no encontrada.
 - `src/layouts/`:
-  - `BaseLayout.astro`: layout principal. Slots: default, `json-ld` (en head), `head` (en head, para meta adicionales). Props: title, description, ogImage, ogImageAlt?, ogType?, canonical?.
-- `src/components/`: se crean a medida que se necesiten. En MVP está vacío (los starter `Welcome.astro` y `Layout.astro` quedan como archivos huérfanos del starter de Astro, no se borran sin pedir).
+  - `BaseLayout.astro`: layout principal. Slots: `content` (en body), `head` y `json-ld` (en head). Props: title, description, ogImage, ogImageAlt?, ogType?, canonical?. Preload de 5 woff2 locales (Lora, Playfair Display, Cormorant Garamond, Work Sans) para LCP rápido.
+- `src/components/`: `Nav.astro` y `Footer.astro` (compartidos vía `BaseLayout.astro`). Los starter `Welcome.astro` y `Layout.astro` quedan como archivos huérfanos del starter de Astro, no se borran sin pedir.
 - `src/assets/`: assets procesados por Astro (imágenes, fuentes si se opta por esa vía). Vacío en MVP; los placeholders de OG van en `public/og/`.
 - `src/content/`:
   - `memorias/`: contiene las memorias en `.md` (o `.mdx` cuando se use). Filename libre; el `slug` viene del frontmatter. Ejemplo: `bienvenida.md`.
 - `src/utils/`:
-  - `posts.ts`: helpers `getPublishedMemorias()` (filtra drafts, ordena desc) y `postUrl(post)` (`/memorias/:slug`).
+  - `posts.ts`: helpers `getPublishedMemorias()` (filtra drafts, ordena desc), `postUrl(post)` (`/memorias/:slug`) y `getMetadataLabel(post)` (formatea series/categoría).
+  - `reading.ts`: `readingTimeMinutes(body)` (cuenta palabras en markdown, divide por 200 WPM Spanish) y `readingTimeISO(min)` (formato ISO 8601 `PT<M>M` para JSON-LD `timeRequired`).
 - `src/styles/`:
   - `global.css`: Tailwind 4 + fonts + typography. Override de `font-family` body → Lora, headings → Playfair Display.
 - `src/content.config.ts`: define la collection `memorias` con su schema Zod.
